@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arxiv Papers</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <h1>Arxiv Papers</h1>
+    <div id="clock-strip">
+      <span id="last-refresh" title="Last successful refresh"></span>
+    </div>
+  </div>
+  <div id="status-bar">
+    <span id="conn-dot" class="dot" title="DB connection"></span>
+    <span id="paper-count" class="units"></span>
+  </div>
+</header>
+
+<main class="grid">
+  <section class="widget" id="widget-arxiv">
+    <h2>Papers <span class="units">· from pipeline DB · click column to sort</span></h2>
+    <div class="widget-body"></div>
+  </section>
+
+  <section class="widget" id="widget-briefings">
+    <h2>Weekly Outputs <span class="units">· briefings + deep dives</span></h2>
+    <div class="widget-body"><div class="meta-row">Loading…</div></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
