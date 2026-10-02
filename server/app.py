@@ -9,8 +9,8 @@ The DB is opened read-only. If a source is missing the API degrades to
 
 Paths are env-overridable:
   ARXIV_DB          default ~/.hermes/datasets/arxiv/arxiv_papers.db
-  ARXIV_BRIEFING_DIR  default "/mnt/g/My Drive/05_Work/Arxiv Briefings"
-  ARXIV_DEEPDIVE_DIR  default "/mnt/g/My Drive/05_Work/Arxiv Deep Dives"
+  ARXIV_BRIEFING_DIR  default ~/.hermes/datasets/arxiv/reports
+  ARXIV_DEEPDIVE_DIR  default ~/.hermes/datasets/arxiv/reports
 
 Run:  uvicorn server.app:app --host 0.0.0.0 --port 8010
 """
@@ -29,9 +29,11 @@ ARXIV_DB = Path(os.environ.get(
     str(Path.home() / ".hermes" / "datasets" / "arxiv" / "arxiv_papers.db"),
 ))
 BRIEFING_DIR = Path(os.environ.get(
-    "ARXIV_BRIEFING_DIR", "/mnt/g/My Drive/05_Work/Arxiv Briefings"))
+    "ARXIV_BRIEFING_DIR",
+    str(Path.home() / ".hermes" / "datasets" / "arxiv" / "reports")))
 DEEP_DIVE_DIR = Path(os.environ.get(
-    "ARXIV_DEEPDIVE_DIR", "/mnt/g/My Drive/05_Work/Arxiv Deep Dives"))
+    "ARXIV_DEEPDIVE_DIR",
+    str(Path.home() / ".hermes" / "datasets" / "arxiv" / "reports")))
 
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 
@@ -103,8 +105,10 @@ def api_briefings() -> dict:
     """Weekly briefing + deep-dive text outputs (latest few, with preview)."""
     return {
         "updated_at": _now_iso(),
-        "briefings": _latest_files(BRIEFING_DIR, "short_2026*.txt"),
-        "deep_dives": _latest_files(DEEP_DIVE_DIR, "short_deep_dive_2026*.txt"),
+        # Year-agnostic on purpose. These globs were pinned to `2026`, so the endpoint
+        # would have silently returned no briefings from 2027-01-01 with no error.
+        "briefings": _latest_files(BRIEFING_DIR, "short_[0-9]*.txt"),
+        "deep_dives": _latest_files(DEEP_DIVE_DIR, "short_deep_dive_[0-9]*.txt"),
     }
 
 

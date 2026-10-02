@@ -33,8 +33,8 @@ The dashboard reads the arXiv pipeline's SQLite database directly (read-only):
 | Env var | Default |
 |---|---|
 | `ARXIV_DB` | `~/.hermes/datasets/arxiv/arxiv_papers.db` |
-| `ARXIV_BRIEFING_DIR` | `/mnt/g/My Drive/05_Work/Arxiv Briefings` |
-| `ARXIV_DEEPDIVE_DIR` | `/mnt/g/My Drive/05_Work/Arxiv Deep Dives` |
+| `ARXIV_BRIEFING_DIR` | `~/.hermes/datasets/arxiv/reports` |
+| `ARXIV_DEEPDIVE_DIR` | `~/.hermes/datasets/arxiv/reports` |
 
 Point `ARXIV_DB` at wherever your pipeline writes its DB and it works with no
 other config.
